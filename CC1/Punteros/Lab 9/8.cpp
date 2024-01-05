@@ -46,20 +46,24 @@ int main()
     llenarMatrizRandom(M1, m, n);
     mostrarMatriz(M1, m, n);
 
-    int f = 3, c = 8;
+    int f,c;
+    while(f*c != m*n){
+        cout << "Ingrese el numero de filas: ";
+        cin >> f;
+        cout << "Ingrese el numero de columnas: ";
+        cin >> c;
+        if(f*c != m*n) cout << "El numero de elementos es incorrecto" << endl;
+    }
 
     // Matriz final
     int **M2;
     crearMatriz(M2, f, c);
-    // ! PROBAR
-    int *p = M1[0];
 
     for (int i = 0; i < f * c; i++)
     {
-        cout << *(*M1 + i) << " ";
+        *(*M2 + i) = *(*M1 +i);
     }
-
-    //mostrarMatriz(M2, f, c);
+    mostrarMatriz(M2, f, c);
 
     borrarMatriz(M1, m);
     borrarMatriz(M2, f);
