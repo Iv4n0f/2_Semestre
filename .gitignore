@@ -1,4 +1,5 @@
-?.json
-?.dot
-?.png
-?.exe
+*.json
+*.dot
+*.png
+*.exe
+.vscode/

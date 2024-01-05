@@ -29,7 +29,7 @@ void mostrarMatriz(int **M, int f, int c)
     }
 }
 
-void borrarMatriz(int **&M, int f, int c)
+void borrarMatriz(int **&M, int f)
 {
     for (int i = 0; i < f; i++)
     {
@@ -71,6 +71,6 @@ int main()
 
     // mostrarMatriz(M2, f, c);
 
-    borrarMatriz(M1, m, n);
-    borrarMatriz(M2, f, c);
+    borrarMatriz(M1, m);
+    borrarMatriz(M2, f);
 }
