@@ -47,22 +47,26 @@ int main()
     mostrarMatriz(M1, m, n);
 
     int f,c;
-    while(f*c != m*n){
+    while(true){
         cout << "Ingrese el numero de filas: ";
         cin >> f;
         cout << "Ingrese el numero de columnas: ";
         cin >> c;
-        if(f*c != m*n) cout << "El numero de elementos es incorrecto" << endl;
+        if(f*c == m*n) break;
+        cout << "El numero de elementos es incorrecto" << endl;
     }
 
     // Matriz final
     int **M2;
     crearMatriz(M2, f, c);
 
-    for (int i = 0; i < f * c; i++)
+    // Al trabajar con matrices dinámicas las dM
+    // no son necesariamente continuas
+    for (int i = 0; i < m * n; i++)
     {
-        *(*M2 + i) = *(*M1 +i);
+        M2[i / c][i % c] = M1[i / n][i % n]; // i / c = fila, i % c = columna
     }
+
     mostrarMatriz(M2, f, c);
 
     borrarMatriz(M1, m);
