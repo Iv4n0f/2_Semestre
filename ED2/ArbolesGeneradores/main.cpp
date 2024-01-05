@@ -48,16 +48,22 @@ void crearMatriz(int **&M, int n)
 
 void mostrarMatriz(int **M, int n)
 {
-    cout << endl;
-    cout << "Matriz: " << endl;
+    cout << "  ";
     for (int i = 0; i < n; i++)
     {
+        cout << i << " ";
+    }
+    cout << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << i << " ";
         for (int j = 0; j < n; j++)
         {
             cout << M[i][j] << " ";
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 void borrarMatriz(int **M, int n)
@@ -69,7 +75,7 @@ void borrarMatriz(int **M, int n)
     delete[] M;
 }
 
-void graphVizz(int **M, int numVertices, const char *nombreArchivo)
+void graphVizz(int **M, int n, const char *nombreArchivo)
 {
     ofstream archivoDOT(nombreArchivo);
 
@@ -81,9 +87,9 @@ void graphVizz(int **M, int numVertices, const char *nombreArchivo)
 
     archivoDOT << "graph GrafoNoDirigido {" << endl;
 
-    for (int i = 0; i < numVertices; ++i)
+    for (int i = 0; i < n; ++i)
     {
-        for (int j = i + 1; j < numVertices; ++j)
+        for (int j = i ; j < n; ++j)
         {
             if (M[i][j] == 1)
             {
@@ -103,6 +109,49 @@ void graphVizz(int **M, int numVertices, const char *nombreArchivo)
     system(comando.c_str());
 }
 
+void DFS(int **M, int n, int **M_DFS, int v, bool visitados[])
+{
+    for (int j = 0; j < n; j++)
+    {
+        if (M[v][j] != 0 && !visitados[j])
+        {
+            M_DFS[v][j] = 1;
+            M_DFS[j][v] = 1;
+            visitados[j] = true;
+            DFS(M, n, M_DFS, j, visitados);
+        }
+    }
+}
+
+void iniciarDFS(int **M, int n, int **M_DFS)
+{
+    bool visitados[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        visitados[i] = false;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        if (!visitados[i])
+        {
+            visitados[i] = true;
+            DFS(M, n, M_DFS, i, visitados);
+        }
+    }
+}
+
+void BFS(int **M, int n, int **M_BFS, int v, bool visitados[])
+{
+
+}
+
+void iniciarBFS(int **M, int n, int **M_BFS)
+{
+
+}
+
 int main()
 {
     int n;
@@ -112,8 +161,17 @@ int main()
 
     crearMatriz(M, n);
     llenarAristasAleatorias(M, n);
+    cout << "Matriz original: " << endl;
     mostrarMatriz(M, n);
     graphVizz(M, n, "grafo.dot");
 
+    int ** M_DFS;
+    crearMatriz(M_DFS, n);
+    iniciarDFS(M, n, M_DFS);
+    cout << "Matriz DFS: " << endl;
+    mostrarMatriz(M_DFS, n);
+    graphVizz(M_DFS, n, "grafo_DFS.dot");
+
+    borrarMatriz(M_DFS, n);
     borrarMatriz(M, n);
 }
