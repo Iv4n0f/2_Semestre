@@ -32,9 +32,7 @@ void mostrarMatriz(int **M, int f, int c)
 void borrarMatriz(int **&M, int f)
 {
     for (int i = 0; i < f; i++)
-    {
         delete[] M[i];
-    }
     delete[] M;
 }
 
@@ -44,11 +42,7 @@ int main()
     int m = 4, n = 6;
     cout << "Matriz inicial; Filas = " << m << ", Columnas = " << n << endl;
     int **M1;
-    // crearMatriz(M1, m, n);
-    M1 = new int *[m];
-    for (int i = 0; i < m; i++)
-        M1[i] = new int[n];
-
+    crearMatriz(M1, m, n);
     llenarMatrizRandom(M1, m, n);
     mostrarMatriz(M1, m, n);
 
@@ -56,20 +50,16 @@ int main()
 
     // Matriz final
     int **M2;
-    // crearMatriz(M2, f, c);
-    M2 = new int *[f];
-    for (int i = 0; i < m; i++)
-        M2[i] = new int[c];
-
+    crearMatriz(M2, f, c);
     // ! PROBAR
-    int *p = &M1[0][0];
+    int *p = M1[0];
 
     for (int i = 0; i < f * c; i++)
     {
-        cout << *(p + i) << " ";
+        cout << *(*M1 + i) << " ";
     }
 
-    // mostrarMatriz(M2, f, c);
+    //mostrarMatriz(M2, f, c);
 
     borrarMatriz(M1, m);
     borrarMatriz(M2, f);
