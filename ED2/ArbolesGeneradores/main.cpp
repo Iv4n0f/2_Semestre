@@ -1,22 +1,22 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <cstdlib>
 #include <ctime>
 
 using namespace std;
 
-void caminoBase(int **M, int n)
+void llenarAristasAleatorias(int **M, int n)
 {
-    
-}
-
-void llenarAristasAleatorias(int **M, int n) //!FALTA HACER CAMINO BASE
-{
-    caminoBase(M, n);
-
+    for (int i = 0; i < n - 1; i++)
+    {
+        M[i][i + 1] = 1;
+        M[i + 1][i] = 1;
+    }
     srand(time(NULL));
     for (int i = 0; i < n; i++)
     {
-        int r = (rand() % n) - 2;
+        int r = rand() % (n - 1) + 1;
 
         for (int k = 0; k < r; k++)
         {
@@ -29,11 +29,6 @@ void llenarAristasAleatorias(int **M, int n) //!FALTA HACER CAMINO BASE
             M[j][i] = 1;
         }
     }
-}
-
-void grafoConexo(int **M, int n)
-{
-    int cont = 0;
 }
 
 void crearMatriz(int **&M, int n)
@@ -59,7 +54,7 @@ void mostrarMatriz(int **M, int n)
     {
         for (int j = 0; j < n; j++)
         {
-            cout << M[i][j] << "\t";
+            cout << M[i][j] << " ";
         }
         cout << endl;
     }
@@ -74,6 +69,40 @@ void borrarMatriz(int **M, int n)
     delete[] M;
 }
 
+void graphVizz(int **M, int numVertices, const char *nombreArchivo)
+{
+    ofstream archivoDOT(nombreArchivo);
+
+    if (!archivoDOT.is_open())
+    {
+        cerr << "No se pudo abrir el archivo DOT." << endl;
+        return;
+    }
+
+    archivoDOT << "graph GrafoNoDirigido {" << endl;
+
+    for (int i = 0; i < numVertices; ++i)
+    {
+        for (int j = i + 1; j < numVertices; ++j)
+        {
+            if (M[i][j] == 1)
+            {
+                archivoDOT << "  " << i << " -- " << j << ";" << endl;
+            }
+        }
+    }
+
+    archivoDOT << "}" << endl;
+    archivoDOT.close();
+
+    cout << "El archivo DOT se ha generado correctamente: " << nombreArchivo << endl;
+
+    string comando = "dot -Tpng " + string(nombreArchivo) + " -o " + string(nombreArchivo) + ".png";
+    system(comando.c_str());
+    comando = string(nombreArchivo) + ".png";
+    system(comando.c_str());
+}
+
 int main()
 {
     int n;
@@ -84,6 +113,7 @@ int main()
     crearMatriz(M, n);
     llenarAristasAleatorias(M, n);
     mostrarMatriz(M, n);
+    graphVizz(M, n, "grafo.dot");
 
     borrarMatriz(M, n);
 }
