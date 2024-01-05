@@ -1,6 +1,4 @@
-.vscode/settings.json
-.vscode/tasks.json
-ED2/ArbolesGeneradores/grafo_DFS.dot
-ED2/ArbolesGeneradores/grafo_DFS.dot.png
-ED2/ArbolesGeneradores/grafo.dot
-ED2/ArbolesGeneradores/grafo.dot.png
+?.json
+?.dot
+?.png
+?.exe
