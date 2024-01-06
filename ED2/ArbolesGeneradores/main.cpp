@@ -16,7 +16,7 @@ void llenarAristasAleatorias(int **M, int n)
     srand(time(NULL));
     for (int i = 0; i < n; i++)
     {
-        int r = rand() % (n - 1) + 1;
+        int r = rand() % (n/4) + 1;
 
         for (int k = 0; k < r; k++)
         {
@@ -89,7 +89,7 @@ void graphVizz(int **M, int n, const char *nombreArchivo)
 
     for (int i = 0; i < n; ++i)
     {
-        for (int j = i ; j < n; ++j)
+        for (int j = i; j < n; ++j)
         {
             if (M[i][j] == 1)
             {
@@ -142,14 +142,44 @@ void iniciarDFS(int **M, int n, int **M_DFS)
     }
 }
 
-void BFS(int **M, int n, int **M_BFS, int v, bool visitados[])
+void BFS(int **M, int n, int **M_BFS, int v, bool visitados[], bool cola[])
 {
-
+    cola[v] = false;
+    for (int j = 0; j < n; j++)
+    {
+        if (!visitados[j] && M[v][j] != 0)
+        {
+            M_BFS[v][j] = 1;
+            M_BFS[j][v] = 1;
+            cola[j] = true;
+            visitados[j] = true;
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if (cola[i])
+            BFS(M, n, M_BFS, i, visitados, cola);
+    }
 }
 
 void iniciarBFS(int **M, int n, int **M_BFS)
 {
+    bool visitados[n], cola[n];
+    for (int i = 0; i < n; i++)
+    {
+        visitados[i] = false;
+        cola[i] = false;
+    }
 
+    for (int i = 0; i < n; i++)
+    {
+        if (!visitados[i])
+        {
+            cola[i] = true;
+            visitados[i] = true;
+            BFS(M, n, M_BFS, i, visitados, cola);
+        }
+    }
 }
 
 int main()
@@ -165,13 +195,21 @@ int main()
     mostrarMatriz(M, n);
     graphVizz(M, n, "grafo.dot");
 
-    int ** M_DFS;
+    int **M_DFS;
     crearMatriz(M_DFS, n);
     iniciarDFS(M, n, M_DFS);
     cout << "Matriz DFS: " << endl;
     mostrarMatriz(M_DFS, n);
     graphVizz(M_DFS, n, "grafo_DFS.dot");
 
+    int **M_BFS;
+    crearMatriz(M_BFS, n);
+    iniciarBFS(M, n, M_BFS);
+    cout << "Matriz BFS: " << endl;
+    mostrarMatriz(M_BFS, n);
+    graphVizz(M_BFS, n, "grafo_BFS.dot");
+
     borrarMatriz(M_DFS, n);
     borrarMatriz(M, n);
+    borrarMatriz(M_BFS, n);
 }
