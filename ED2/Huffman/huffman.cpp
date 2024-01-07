@@ -192,7 +192,7 @@ void generarGrafo(nodo *&head, const string &nombreArchivoDot)
 
 int main()
 {
-    ifstream archivo("/home/epccl1-10/Documentos/ilopezz/EDII/letras.txt");
+    ifstream archivo("letras.txt");
 
     if (!archivo.is_open())
     {
@@ -239,7 +239,7 @@ int main()
 
     generarGrafo(head, "huffman.dot");
     system("dot -Tpng huffman.dot -o huffman.png");
-    system("xdg-open huffman.png");
+    system("open huffman.png");
 
     // Codificacion - Codigos
     map<char, string> codificaciones;
