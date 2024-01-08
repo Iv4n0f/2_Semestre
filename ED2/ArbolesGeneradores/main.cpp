@@ -81,7 +81,7 @@ void graphVizz(int **M, int n, const char *nombreArchivo)
 
     if (!archivoDOT.is_open())
     {
-        cerr << "No se pudo abrir el archivo DOT." << endl;
+        cerr << "No se pudo abrir el archivo .DOT" << endl;
         return;
     }
 
@@ -101,7 +101,7 @@ void graphVizz(int **M, int n, const char *nombreArchivo)
     archivoDOT << "}" << endl;
     archivoDOT.close();
 
-    cout << ".dot creado con éxito." << nombreArchivo << endl;
+    cout << ".dot creado con exito:" << nombreArchivo << endl;
 
     string comando = "dot -Tpng " + string(nombreArchivo) + " -o " + string(nombreArchivo) + ".png";
     system(comando.c_str());
