@@ -109,75 +109,75 @@ void graphVizz(int **M, int n, const char *nombreArchivo)
     system(comando.c_str());
 }
 
-void DFS(int **M, int n, int **M_DFS, int v, bool visitados[])
+void DFS(int **M, int n, int **M_DFS, int v, bool visited[])
 {
     for (int j = 0; j < n; j++)
     {
-        if (M[v][j] != 0 && !visitados[j])
+        if (M[v][j] != 0 && !visited[j])
         {
             M_DFS[v][j] = 1;
             M_DFS[j][v] = 1;
-            visitados[j] = true;
-            DFS(M, n, M_DFS, j, visitados);
+            visited[j] = true;
+            DFS(M, n, M_DFS, j, visited);
         }
     }
 }
 
 void iniciarDFS(int **M, int n, int **M_DFS)
 {
-    bool visitados[n];
+    bool visited[n];
 
     for (int i = 0; i < n; i++)
     {
-        visitados[i] = false;
+        visited[i] = false;
     }
 
     for (int i = 0; i < n; i++)
     {
-        if (!visitados[i])
+        if (!visited[i])
         {
-            visitados[i] = true;
-            DFS(M, n, M_DFS, i, visitados);
+            visited[i] = true;
+            DFS(M, n, M_DFS, i, visited);
         }
     }
 }
 
-void BFS(int **M, int n, int **M_BFS, int v, bool visitados[], bool cola[])
+void BFS(int **M, int n, int **M_BFS, int v, bool visited[], bool cola[])
 {
     cola[v] = false;
     for (int j = 0; j < n; j++)
     {
-        if (!visitados[j] && M[v][j] != 0)
+        if (!visited[j] && M[v][j] != 0)
         {
             M_BFS[v][j] = 1;
             M_BFS[j][v] = 1;
             cola[j] = true;
-            visitados[j] = true;
+            visited[j] = true;
         }
     }
     for (int i = 0; i < n; i++)
     {
         if (cola[i])
-            BFS(M, n, M_BFS, i, visitados, cola);
+            BFS(M, n, M_BFS, i, visited, cola);
     }
 }
 
 void iniciarBFS(int **M, int n, int **M_BFS)
 {
-    bool visitados[n], cola[n];
+    bool visited[n], cola[n];
     for (int i = 0; i < n; i++)
     {
-        visitados[i] = false;
+        visited[i] = false;
         cola[i] = false;
     }
 
     for (int i = 0; i < n; i++)
     {
-        if (!visitados[i])
+        if (!visited[i])
         {
             cola[i] = true;
-            visitados[i] = true;
-            BFS(M, n, M_BFS, i, visitados, cola);
+            visited[i] = true;
+            BFS(M, n, M_BFS, i, visited, cola);
         }
     }
 }
