@@ -64,7 +64,7 @@ int main()
     // no son necesariamente continuas
     for (int i = 0; i < m * n; i++)
     {
-        M2[i / c][i % c] = M1[i / n][i % n]; // i / c = fila, i % c = columna
+        *(*(M2 + (i / c)) + i % c) = *(*(M1 + (i / n)) + i % n); // i / c = fila, i % c = columna
     }
 
     mostrarMatriz(M2, f, c);
