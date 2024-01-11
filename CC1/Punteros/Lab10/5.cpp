@@ -1,111 +1,51 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
-void crearMatriz(int **&M, int f, int c)
-{
-    M = new int *[f];
-    for (int i = 0; i < f; i++)
-        M[i] = new int[c];
-}
-
-void llenarMatrizRandom(int **M, int f, int c)
+void llenarVector(int *V, int n)
 {
     srand(time(NULL));
-    for (int i = 0; i < f; i++)
-    {
-        for (int j = 0; j < c; j++)
-        {
-            *(*(M + i) + j) = rand() % 5 + 1; //Valores pequeños para evitar usar long
-        }
-    }
-}
-
-void sumaAcumulativa(int &suma_actual, int sumando)
-{
-    suma_actual += sumando;
-}
-
-void productoAcumulativo(int &producto_actual, int multiplicador)
-{
-    producto_actual *= multiplicador;
-}
-
-void mostrarMatriz(int **M, int n)
-{
-    cout << "  ";
     for (int i = 0; i < n; i++)
     {
-        cout << i << " ";
+        V[i] = rand() % 10 +1;
     }
-    cout << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cout << i << " ";
-        for (int j = 0; j < n; j++)
-        {
-            cout << M[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
 }
-void mostrarMatriz(int **M, int f, int c)
+
+void suma(int &a, int b)
 {
-    cout << "  ";
-    for (int i = 0; i < c; i++)
-    {
-        cout << i << " ";
-    }
-    cout << endl;
-    for (int i = 0; i < f; i++)
-    {
-        cout << i << " ";
-        for (int j = 0; j < c; j++)
-        {
-            cout << M[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
+    a = a + b;
+}
+
+void producto(int &a, int b)
+{
+    a = a * b;
 }
 
 int main()
 {
-    int **M;
-    int f, c;
+    int *V;
+    int n;
+    cout << "n de V?";
+    cin >> n;
+    V = new int[n];
+    llenarVector(V, n);
 
-    cout << "f: ";
-    cin >> f;
-    cout << "c: ";
-    cin >> c;
-    crearMatriz(M, f, c);
-    llenarMatrizRandom(M, f, c);
-    mostrarMatriz(M, f, c);
-    // * Array de punteros a funciones
-    void (*funciones[2])(int &, int) = {sumaAcumulativa, productoAcumulativo};
+    void (*f[2])(int &, int) = {suma, producto};
 
-    int x, y;
+    int sum = 0, pro = 1;
 
-    cout << "Sumar fila x (0-" << f << ")";
-    cin >> x;
-
-    int sum = 0;
-    for (int i = 0; i < c; i++)
+    for (int i = 0; i < n; i++)
     {
-        funciones[0](sum, M[x][i]);
+        if ((i + 1) % 2 == 0)
+            f[0](sum, V[i]);
+        if ((i + 1) % 2 == 1)
+            f[1](pro, V[i]);
+        cout << V[i] << " ";
     }
-    cout << "Suma fila " << x << " = " << sum << endl;
+    cout << endl;
 
-    cout << "Producto columna y (0 - " << c << ")";
-    cin >> y;
-
-    int pro = M[0][y]; // Initialize pro with the first element of the column
-    for (int i = 1; i < f; i++)
-    {
-        funciones[1](pro, M[i][y]);
-    }
-    cout << "Producto columna " << y << " = " << pro << endl;
+    cout << "Suma = " << sum << endl;
+    cout << "Producto = " << pro;
 }
