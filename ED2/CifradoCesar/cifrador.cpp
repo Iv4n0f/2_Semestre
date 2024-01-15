@@ -13,7 +13,7 @@ int posicion(char c, char alfabeto[])
     }
 }
 
-string read_file(string file_name)
+string leerArchivo(string file_name)
 {
     ifstream file(file_name);
     string line;
@@ -84,7 +84,7 @@ string descifrar(string texto, int k)
     return result;
 }
 
-void write_file(string file_name, string text)
+void escribirArchivo(string file_name, string text)
 {
     ofstream file(file_name);
     file << text;
@@ -96,8 +96,9 @@ int main()
     int k;
     cout << "Ingrese el factor K: ";
     cin >> k;
-
-    string texto = read_file("mensaje.txt");
+    cout << endl;
+    
+    string texto = leerArchivo("mensaje.txt");
     cout << "Texto original:\n"
          << texto << endl;
     texto = textoMinusculasSinTildes(texto);
@@ -110,5 +111,5 @@ int main()
     cout << "Texto descifrado:\n"
          << textoDescifrado << endl;
 
-    write_file("mensajeCifrado.txt", textoCifrado);
+    escribirArchivo("mensajeCifrado.txt", textoCifrado);
 }
