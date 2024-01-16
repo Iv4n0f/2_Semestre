@@ -93,7 +93,9 @@ string vectorToString(vector <string> v)
 
 int main()
 {   
-    const int brecha = 4; // Cantidad de palabras comunes en el mensaje descifrado para considerarlo una respuesta
+    int brecha; // Cantidad de palabras comunes en el mensaje descifrado para considerarlo una respuesta
+    cout << "Brecha: ";
+    cin >> brecha;
 
     string palabrasComunes = leerArchivo("palabrasComunes.txt");
     vector <string> palabras_comunes = split(palabrasComunes, ' ');
