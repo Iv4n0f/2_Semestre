@@ -92,7 +92,9 @@ string vectorToString(vector <string> v)
 }
 
 int main()
-{
+{   
+    const int brecha = 4; // Cantidad de palabras comunes en el mensaje descifrado para considerarlo una respuesta
+
     string palabrasComunes = leerArchivo("palabrasComunes.txt");
     vector <string> palabras_comunes = split(palabrasComunes, ' ');
 
@@ -104,8 +106,8 @@ int main()
 
     for (int i = 1; i < 26; i++)
     {   
+        int coincidencias = 0;
         vector <string> palabras_descifradas;
-        bool coincide = false;
 
         for (string palabra : palabras_cifradas)
         {
@@ -118,15 +120,19 @@ int main()
             {
                 if (palabra == palabra_comun)
                 {
-                    coincide = true;
+                    coincidencias++;
                     break;
                 }
             }
-            if (coincide) break;
+            if (coincidencias >= brecha) break;
         }
-        if (coincide) result.push_back(vectorToString(palabras_descifradas));
-    }
 
+        if (coincidencias >= brecha) result.push_back(vectorToString(palabras_descifradas));
+    }
+    
+    cout << "\nResultados:\n";
+    cout << "Brecha = " << brecha << "\n";
+    cout << endl;
     mostrar(result);
 }
 
