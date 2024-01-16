@@ -1,1 +1,8 @@
-Prueba de cifrado Cesar
+el cifrado cesar es un metodo de cifrado
+simetrico basado en la sustitucion consiste
+en sustituir cada letra del alfabeto
+por una letra desplazada un numero
+determinado de posiciones clave por
+ejemplo si desplazamos 1 posicion reemplazariamos
+la letra a con la b la b con la c y asi
+sucesivamente hasta sustituir la z por la a

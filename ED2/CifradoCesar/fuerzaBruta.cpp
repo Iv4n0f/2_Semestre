@@ -42,7 +42,8 @@ void mostrar(vector <string> v)
 {
     for (int i = 0; i < v.size(); i++)
     {
-        cout << v[i] << "-";
+        cout <<i <<". "<< v[i] << "\n";
+        cout << "------------------------------\n";
     }
 }
 
@@ -72,9 +73,21 @@ string descifrar(string texto, int k)
         }
         int pos = posicion(c, alfabeto);
         pos = (pos - k) % letras;
+        pos = (pos + letras) % letras;
         result += alfabeto[pos];
     }
 
+    return result;
+}
+
+string vectorToString(vector <string> v)
+{
+    string result;
+    for (string s : v)
+    {
+        result += s;
+        result += ' ';
+    }
     return result;
 }
 
@@ -88,16 +101,32 @@ int main()
 
     // Fuerza bruta
     vector <string> result;
-    for (int i = 0; i < 26; i++)
+
+    for (int i = 1; i < 26; i++)
     {   
         vector <string> palabras_descifradas;
-        string posible_resultado;
+        bool coincide = false;
+
         for (string palabra : palabras_cifradas)
         {
-
+            palabras_descifradas.push_back(descifrar(palabra,i));
         }
+
+        for (string palabra : palabras_descifradas)
+        {
+            for (string palabra_comun : palabras_comunes)
+            {
+                if (palabra == palabra_comun)
+                {
+                    coincide = true;
+                    break;
+                }
+            }
+            if (coincide) break;
+        }
+        if (coincide) result.push_back(vectorToString(palabras_descifradas));
     }
 
-    mostrar(palabras_comunes);
+    mostrar(result);
 }
 

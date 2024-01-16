@@ -27,17 +27,6 @@ string leerArchivo(string file_name)
     return result;
 }
 
-string textoMinusculasSinTildes(const string &texto)
-{
-    string resultado;
-
-    for (char c : texto)
-    {
-        resultado += tolower(static_cast<unsigned char>(c));
-    }
-    return resultado;
-}
-
 string cifrar(string texto, int k)
 {
     const int letras = 26;
@@ -55,6 +44,7 @@ string cifrar(string texto, int k)
         }
         int pos = posicion(c, alfabeto);
         pos = (pos + k) % letras;
+        pos = (pos + letras) % letras;
         result += alfabeto[pos];
     }
 
@@ -78,6 +68,7 @@ string descifrar(string texto, int k)
         }
         int pos = posicion(c, alfabeto);
         pos = (pos - k) % letras;
+        pos = (pos + letras) % letras;
         result += alfabeto[pos];
     }
 
@@ -101,7 +92,6 @@ int main()
     string texto = leerArchivo("mensaje.txt");
     cout << "Texto original:\n"
          << texto << endl;
-    texto = textoMinusculasSinTildes(texto);
 
     string textoCifrado = cifrar(texto, k);
     cout << "Texto cifrado:\n"
