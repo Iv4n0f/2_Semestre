@@ -151,33 +151,40 @@ int main()
         textos_descifrados.push_back(vectorToString(palabras_descifradas));
     }
 
-    for(int i = 0; i < 26; i++)
+    ofstream archivo("fuerzaBruta.txt");
+
+    if (archivo.is_open())
     {
-        cout << "K = " << i << "\t";
-        cout << (float)coincidencias[i]/(float)palabras_cifradas.size() * 100 << "%\n";
-    }
-
-    cout << "\n MEJOR RESULTADO :\n";
-
-    int index_mayor_coincidencia = mayor(coincidencias);
-    cout << "------------------------------\n";
-    cout << textos_descifrados[index_mayor_coincidencia] << endl;
-
-    /* //*Por si existiera mas de un resultado (altamente improbable)
-    vector<int> factores_K;
-    vector<string> result;
-    for (int i = 0; i < coincidencias.size(); i++)
-    {
-        if (coincidencias[i] == mayor_coincidencias)
+        for (int i = 0; i < 26; i++)
         {
-            result.push_back(textos_descifrados[i]);
-            factores_K.push_back(i);
+            archivo << "K = " << i << "\t";
+            archivo << (float)coincidencias[i] / (float)palabras_cifradas.size() * 100 << "%\n";
         }
-    }
 
-    mostrar(result, factores_K);*/
-    
-    cout << "------------------------------\n";
-    float porcentaje = (float)coincidencias[index_mayor_coincidencia] / (float)palabras_cifradas.size() * 100;
-    cout << "Porcentaje de coincidencias: " << porcentaje << "%\n";
+        archivo << "\n MEJOR RESULTADO :\n";
+
+        int index_mayor_coincidencia = mayor(coincidencias);
+        archivo << "------------------------------\n";
+        archivo << textos_descifrados[index_mayor_coincidencia] << endl;
+
+        /* //*Por si existiera mas de un resultado (altamente improbable)
+        vector<int> factores_K;
+        vector<string> result;
+        for (int i = 0; i < coincidencias.size(); i++)
+        {
+            if (coincidencias[i] == mayor_coincidencias)
+            {
+                result.push_back(textos_descifrados[i]);
+                factores_K.push_back(i);
+            }
+        }
+
+        mostrar(result, factores_K);*/
+
+        archivo << "------------------------------\n";
+        float porcentaje = (float)coincidencias[index_mayor_coincidencia] / (float)palabras_cifradas.size() * 100;
+        archivo << "Porcentaje de coincidencias: " << porcentaje << "%\n";
+
+        archivo.close();
+    }
 }
