@@ -91,11 +91,33 @@ string vectorToString(vector <string> v)
     return result;
 }
 
+int mayor(vector <int> v)
+{
+    int mayor = v[0];
+    for (int i = 0; i < v.size(); i++)
+    {
+        if(v[i] > mayor)
+            mayor = v[i];
+    }
+    return mayor;
+}
+
+int contar_incidencias(vector <int> v, int valor)
+{
+    int incidencias = 0;
+    for (int i = 0; i < v.size(); i++)
+    {
+        if(v[i] = valor)
+            incidencias++;
+    }
+    return incidencias;
+}
+
 int main()
 {   
-    int brecha; // Cantidad de palabras comunes en el mensaje descifrado para considerarlo una respuesta
+/*     int brecha; // Cantidad de palabras comunes en el mensaje descifrado para considerarlo una respuesta
     cout << "Brecha: ";
-    cin >> brecha;
+    cin >> brecha; */
 
     string palabrasComunes = leerArchivo("palabrasComunes.txt");
     vector <string> palabras_comunes = split(palabrasComunes, ' ');
@@ -104,11 +126,11 @@ int main()
     vector <string> palabras_cifradas = split(texto, ' ');
 
     // Fuerza bruta
-    vector <string> result;
-
-    for (int i = 1; i < 26; i++)
+    vector <string> textos_descifrados;
+    vector <int> coincidencias;
+    for (int i = 0; i < 26; i++)
     {   
-        int coincidencias = 0;
+        int coincidencia = 0;
         vector <string> palabras_descifradas;
 
         for (string palabra : palabras_cifradas)
@@ -122,19 +144,33 @@ int main()
             {
                 if (palabra == palabra_comun)
                 {
-                    coincidencias++;
+                    coincidencia++;
                     break;
                 }
             }
-            if (coincidencias >= brecha) break;
+            //if (coincidencias >= brecha) break;
         }
-
-        if (coincidencias >= brecha) result.push_back(vectorToString(palabras_descifradas));
+        coincidencias.push_back(coincidencia);
+        textos_descifrados.push_back(vectorToString(palabras_descifradas));
+        //if (coincidencias >= brecha) result.push_back(vectorToString(palabras_descifradas));
     }
     
     cout << "\nResultados:\n";
-    cout << "Brecha = " << brecha << "\n";
+    //cout << "Brecha = " << brecha << "\n";
     cout << endl;
+
+    int mayor_coincidencias = mayor(coincidencias);
+    //int incidencias = contar_incidencias(coincidencias, mayor_coincidencias);
+
+    vector <string> result;
+    for(int i = 0; i < coincidencias.size(); i++)
+    {
+        if(coincidencias[i] == mayor_coincidencias)
+        {
+            result.push_back(textos_descifrados[i]);
+        }
+    }
+    
     mostrar(result);
 }
 
