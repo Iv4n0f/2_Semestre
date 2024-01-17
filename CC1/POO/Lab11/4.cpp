@@ -41,8 +41,7 @@ Entero Entero::inverso()
 
 Entero Entero::resta(Entero restador)
 {
-    restador = restador.inverso();
-    return suma(restador);
+    return suma(restador.inverso());
 }
 
 int main()
