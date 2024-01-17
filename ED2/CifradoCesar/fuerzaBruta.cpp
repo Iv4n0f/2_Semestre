@@ -19,13 +19,13 @@ string leerArchivo(string file_name)
     return result;
 }
 
-vector <string> split(string str, char delimiter)
+vector<string> split(string str, char delimiter)
 {
     string palabra;
-    vector <string> result;
+    vector<string> result;
     for (int i = 0; i < str.length(); i++)
     {
-        if(str[i] != delimiter)
+        if (str[i] != delimiter)
         {
             palabra += str[i];
         }
@@ -38,11 +38,13 @@ vector <string> split(string str, char delimiter)
     return result;
 }
 
-void mostrar(vector <string> v)
+void mostrar(vector<string> v, vector<int> v2)
 {
     for (int i = 0; i < v.size(); i++)
     {
-        cout <<i <<". "<< v[i] << "\n";
+        cout << "------------------------------\n";
+        cout << "K = " << v2[i] << endl;
+        cout << v[i] << "\n";
         cout << "------------------------------\n";
     }
 }
@@ -51,7 +53,7 @@ int posicion(char c, char alfabeto[])
 {
     for (int i = 0; i < 26; i++)
     {
-        if(c == alfabeto[i])
+        if (c == alfabeto[i])
             return i;
     }
 }
@@ -65,8 +67,8 @@ string descifrar(string texto, int k)
                              'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
     for (char c : texto)
-    {   
-        if(isalpha(c) == false)
+    {
+        if (isalpha(c) == false)
         {
             result += c;
             continue;
@@ -80,7 +82,7 @@ string descifrar(string texto, int k)
     return result;
 }
 
-string vectorToString(vector <string> v)
+string vectorToString(vector<string> v)
 {
     string result;
     for (string s : v)
@@ -91,51 +93,47 @@ string vectorToString(vector <string> v)
     return result;
 }
 
-int mayor(vector <int> v)
+int mayor(vector<int> v)
 {
-    int mayor = v[0];
+    int mayor = 0;
     for (int i = 0; i < v.size(); i++)
     {
-        if(v[i] > mayor)
-            mayor = v[i];
+        if (v[i] > mayor)
+            mayor = i;
     }
     return mayor;
 }
 
-int contar_incidencias(vector <int> v, int valor)
+int contar_incidencias(vector<int> v, int valor)
 {
     int incidencias = 0;
     for (int i = 0; i < v.size(); i++)
     {
-        if(v[i] = valor)
+        if (v[i] = valor)
             incidencias++;
     }
     return incidencias;
 }
 
 int main()
-{   
-/*     int brecha; // Cantidad de palabras comunes en el mensaje descifrado para considerarlo una respuesta
-    cout << "Brecha: ";
-    cin >> brecha; */
-
+{
     string palabrasComunes = leerArchivo("palabrasComunes.txt");
-    vector <string> palabras_comunes = split(palabrasComunes, ' ');
+    vector<string> palabras_comunes = split(palabrasComunes, ' ');
 
     string texto = leerArchivo("mensajeCifrado.txt");
-    vector <string> palabras_cifradas = split(texto, ' ');
+    vector<string> palabras_cifradas = split(texto, ' ');
 
-    // Fuerza bruta
-    vector <string> textos_descifrados;
-    vector <int> coincidencias;
+    // *Fuerza bruta
+    vector<string> textos_descifrados;
+    vector<int> coincidencias;
     for (int i = 0; i < 26; i++)
-    {   
+    {
         int coincidencia = 0;
-        vector <string> palabras_descifradas;
+        vector<string> palabras_descifradas;
 
         for (string palabra : palabras_cifradas)
         {
-            palabras_descifradas.push_back(descifrar(palabra,i));
+            palabras_descifradas.push_back(descifrar(palabra, i));
         }
 
         for (string palabra : palabras_descifradas)
@@ -148,29 +146,38 @@ int main()
                     break;
                 }
             }
-            //if (coincidencias >= brecha) break;
         }
         coincidencias.push_back(coincidencia);
         textos_descifrados.push_back(vectorToString(palabras_descifradas));
-        //if (coincidencias >= brecha) result.push_back(vectorToString(palabras_descifradas));
     }
-    
-    cout << "\nResultados:\n";
-    //cout << "Brecha = " << brecha << "\n";
-    cout << endl;
 
-    int mayor_coincidencias = mayor(coincidencias);
-    //int incidencias = contar_incidencias(coincidencias, mayor_coincidencias);
-
-    vector <string> result;
-    for(int i = 0; i < coincidencias.size(); i++)
+    for(int i = 0; i < 26; i++)
     {
-        if(coincidencias[i] == mayor_coincidencias)
+        cout << "K = " << i << "\t";
+        cout << (float)coincidencias[i]/(float)palabras_cifradas.size() * 100 << "%\n";
+    }
+
+    cout << "\n MEJOR RESULTADO :\n";
+
+    int index_mayor_coincidencia = mayor(coincidencias);
+    cout << "------------------------------\n";
+    cout << textos_descifrados[index_mayor_coincidencia] << endl;
+
+    /* //*Por si existiera mas de un resultado (altamente improbable)
+    vector<int> factores_K;
+    vector<string> result;
+    for (int i = 0; i < coincidencias.size(); i++)
+    {
+        if (coincidencias[i] == mayor_coincidencias)
         {
             result.push_back(textos_descifrados[i]);
+            factores_K.push_back(i);
         }
     }
-    
-    mostrar(result);
-}
 
+    mostrar(result, factores_K);*/
+    
+    cout << "------------------------------\n";
+    float porcentaje = (float)coincidencias[index_mayor_coincidencia] / (float)palabras_cifradas.size() * 100;
+    cout << "Porcentaje de coincidencias: " << porcentaje << "%\n";
+}
