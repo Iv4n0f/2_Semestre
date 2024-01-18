@@ -1,12 +1,12 @@
 K = 0	0%
 K = 1	0%
-K = 2	1.04712%
+K = 2	7.69231%
 K = 3	0%
-K = 4	0%
-K = 5	0.52356%
+K = 4	30.7692%
+K = 5	0%
 K = 6	0%
 K = 7	0%
-K = 8	5.75916%
+K = 8	0%
 K = 9	0%
 K = 10	0%
 K = 11	0%
@@ -14,19 +14,19 @@ K = 12	0%
 K = 13	0%
 K = 14	0%
 K = 15	0%
-K = 16	4.18848%
+K = 16	0%
 K = 17	0%
-K = 18	27.2251%
+K = 18	0%
 K = 19	0%
-K = 20	2.6178%
+K = 20	0%
 K = 21	0%
 K = 22	0%
 K = 23	0%
-K = 24	2.09424%
+K = 24	0%
 K = 25	0%
 
  MEJOR RESULTADO :
 ------------------------------
-querido amigo, espero que este mensaje te encuentre bien. hay un suceso que ha ocurrido recientemente, algo que nadie mas puede saber. me veo en la necesidad de confiarte esta informacion confidencial, pues se que eres alguien en quien puedo confiar. hace unas semanas, descubri accidentalmente una serie de documentos altamente clasificados en mi lugar de trabajo. estos archivos revelan una red de actividades ilicitas que involucran a personas influyentes. no puedo proporcionar detalles especificos por razones de seguridad, pero puedo decirte que es algo grande y peligroso. me siento atrapado en esta situacion y no se a quien acudir. la presion y el miedo aumentan cada dia. necesito tu consejo y posiblemente tu ayuda para gestionar esta informacion de manera segura. por favor, entiende la gravedad de lo que estoy compartiendo contigo y manten esta conversacion en la mas estricta confidencialidad. estoy dispuesto a reunirme contigo en persona este viernes a las ocho en el parque al frente del municipio para discutir esto mas a fondo y planificar como proceder. tu discrecion y apoyo en este asunto son esenciales. agradezco tu confianza y amistad en este momento dificil. sinceramente, ivan 
+este es un mensaje cifrado por cifrado cesar, y descifrado por fuerza bruta 
 ------------------------------
-Porcentaje de coincidencias: 27.2251%
+Porcentaje de coincidencias: 30.7692%
