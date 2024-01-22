@@ -59,9 +59,10 @@ string keystreamMaker(string mensaje, string key)
 
 int findIndex(char c, vector<char> V)
 {
-    for (int i = 0; i < V.size(); i++){
+    for (int i = 0; i < V.size(); i++)
+    {
         if (V[i] == c)
-        return i;
+            return i;
     }
 }
 
@@ -70,40 +71,32 @@ string cifrarMensaje(string mensaje, string key, vector<vector<char>> matriz, ve
     string keystream = keystreamMaker(mensaje, key);
     string textoCifrado;
 
-    for (int i = 0; i < mensaje.size(); i++){
-        if (mensaje[i] != ' ')
-        {
-            int index_mensaje = findIndex(mensaje[i], vector);
-            int index_clave = findIndex(keystream[i], vector);
+    for (int i = 0; i < mensaje.size(); i++)
+    {
+        int index_mensaje = findIndex(mensaje[i], vector);
+        int index_clave = findIndex(keystream[i], vector);
 
-            char cifrado = matriz[index_mensaje][index_clave];
-            textoCifrado += cifrado;
-        }
-        else{
-            textoCifrado += ' ';
-        }
+        char cifrado = matriz[index_mensaje][index_clave];
+        textoCifrado += cifrado;
     }
     return textoCifrado;
 }
 
-string descifrarMensaje(string m_cifrado, string key, vector<vector<char>> matriz, vector<char> vector){
+string descifrarMensaje(string m_cifrado, string key, vector<vector<char>> matriz, vector<char> vector)
+{
     string keystream = keystreamMaker(m_cifrado, key);
     string textoDescifrado;
-    for (int i = 0; i < m_cifrado.size(); i++){
-        if (m_cifrado[i] != ' '){
-            int index = findIndex(m_cifrado[i], matriz[findIndex(keystream[i],vector)]);
-            textoDescifrado += vector[index];
-        }
-        else{
-            textoDescifrado += ' ';
-        }
+    for (int i = 0; i < m_cifrado.size(); i++)
+    {
+        int index = findIndex(m_cifrado[i], matriz[findIndex(keystream[i], vector)]);
+        textoDescifrado += vector[index];
     }
     return textoDescifrado;
 }
 
 int main()
 {
-    vector<char> V = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    vector<char> V = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '};
     vector<vector<char>> matriz = crearMatriz(V);
     mostrarMatriz(matriz);
 
@@ -118,8 +111,8 @@ int main()
     cout << endl;
 
     string texto_cifrado = cifrarMensaje(mensaje, key, matriz, V);
-    cout << "Texto Cifrado: " << texto_cifrado << endl;
+    cout << "Texto Cifrado: \t\t" << texto_cifrado << endl;
 
     string texto_descifrado = descifrarMensaje(texto_cifrado, key, matriz, V);
-    cout << "Texto Descifrado: " << texto_descifrado << endl;
+    cout << "Texto Descifrado: \t" << texto_descifrado << endl;
 }
