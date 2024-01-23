@@ -56,9 +56,9 @@ void Persona::setTelefono(string t)
 
 void Persona::mostrar()
 {
-    cout << ' - ';
-    cout << "Nombre: " << nombre << ' - ';
-    cout << "Edad: " << edad << ' - ';
+    cout << " - ";
+    cout << "Nombre: " << nombre << " - ";
+    cout << "Edad: " << edad << " - ";
     cout << "Telefono: " << telefono << endl;
 }
 
