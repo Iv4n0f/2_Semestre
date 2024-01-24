@@ -1,6 +1,9 @@
+*
+!*/
+!*.*
+
 *.json
 *.dot
 *.png
 *.exe
 .vscode/
-*
