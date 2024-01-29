@@ -92,6 +92,7 @@ int main(){
         columnas = mensaje.length()/filas + 1;
     }
 
+    // *CIFRADO
     char ** matriz = crearMatriz(filas,columnas);
     llenarMatrizCifrado(matriz,filas,columnas,mensaje);
     cout << "Matriz de cifrado" << endl;
@@ -105,6 +106,7 @@ int main(){
     }
     cout <<"Mensaje cifrado:"<< mensajeCifrado << endl << endl;
 
+    //*DESCIFRADO
     char ** matriz2 = crearMatriz(filas,columnas);
     llenarMatrizDescifrado(matriz2,filas,columnas,mensajeCifrado);
     cout << "Matriz de descifrado" << endl;
