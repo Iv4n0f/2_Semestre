@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <limits>
 
 using namespace std;
 
@@ -27,8 +28,10 @@ public:
 void Persona::llenar_data()
 {
 	cout << "Nombre: ";
-	cin >> nombre;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, nombre);
 	codigo = nombre.substr(0, 2) + to_string(nombre.length());
+	cout << "Codigo: " << codigo << endl;
 }
 void Persona::mostrar_data()
 {
@@ -109,8 +112,10 @@ public:
 void Documento::llenar_data()
 {
 	cout << "Titulo: ";
-	cin >> titulo;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, titulo);
 	codigo = titulo.substr(0, 2) + to_string(titulo.length());
+	cout << "Codigo: " << codigo << endl;
 }
 void Documento::mostrar_data()
 {
@@ -157,7 +162,7 @@ void Libro::llenar_data()
 {
 	Documento::llenar_data();
 	cout << "Autor: ";
-	cin >> autor;
+	getline(cin, autor);
 }
 void Libro::mostrar_data()
 {
@@ -180,7 +185,7 @@ void Revista::llenar_data()
 {
 	Documento::llenar_data();
 	cout << "Editor: ";
-	cin >> editor;
+	getline(cin, editor);
 }
 void Revista::mostrar_data()
 {
@@ -212,6 +217,7 @@ Prestamo::Prestamo(Persona *usuario, Documento *documento) : usuario(usuario), d
 	time_t now = time(0);
 	tm *ltm = localtime(&now);
 	fecha = to_string(ltm->tm_mday) + "/" + to_string(1 + ltm->tm_mon) + "/" + to_string(1900 + ltm->tm_year);
+	cout << "Codigo: " << codigo << endl;
 }
 void Prestamo::mostrar_data()
 {
@@ -283,6 +289,7 @@ void Sistema::ingresar(int tipo)
 		listaRevistas[actualRevistas]->llenar_data();
 		actualRevistas++;
 	}
+	return;
 }
 //////////////////////////////////SISTEMA-listar/////////////////////////////////////////////////////
 void Sistema::listar(int tipo)
@@ -329,6 +336,7 @@ void Sistema::listar(int tipo)
 			listaPrestamos[i]->mostrar_data();
 		}
 	}
+	return;
 }
 ///////////////////SISTEMA-buscar/////////////////////////////////////////////////////////////////
 void Sistema::buscar(int tipo)
@@ -417,6 +425,8 @@ void Sistema::buscar(int tipo)
 			}
 		}
 	}
+	cout << "No se encontro" << endl;
+	return;
 }
 ///////////////////////SISTEMA-eliminar///////////////////////////////////////////////////////////
 void Sistema::eliminar(int tipo)
@@ -511,6 +521,7 @@ void Sistema::eliminar(int tipo)
 			}
 		}
 	}
+	return;
 }
 ///////////////////////SISTEMA-prestar///////////////////////////////////////////////////////////
 void Sistema::prestar()
@@ -590,7 +601,7 @@ void Sistema::prestar()
 				return;
 			}
 		}
-		cout << "Usuario no encontrado" << endl;
+		cout << "Usuario no encontrado" << endl; return;
 	}
 	else if (tipo_usuario == 2)
 	{
@@ -652,8 +663,9 @@ void Sistema::prestar()
 				return;
 			}
 		}
-		cout << "Usuario no encontrado" << endl;
+		cout << "Usuario no encontrado" << endl; return;
 	}
+	return;
 }
 ///////////////////////SISTEMA-devolver///////////////////////////////////////////////////////////
 void Sistema::devolver()
@@ -676,6 +688,7 @@ void Sistema::devolver()
 		}
 	}
 	cout << "Prestamo no encontrado" << endl;
+	return;
 }
 
 int main()
@@ -686,66 +699,67 @@ int main()
 	while (menu != 7)
 	{
 
-		cout << "\t(1) Ingresar datos " << endl;
-		cout << "\t(2) Mostrar  Datos " << endl;
-		cout << "\t(3) Buscar  datos " << endl;
-		cout << "\t(4) Eliminar datos " << endl;
-		cout << "\t(5) Prestar " << endl;
-		cout << "\t(6) Devolver " << endl;
-		cout << "\t(7) Salir " << endl;
+		cout << "(1) Ingresar datos " << endl;
+		cout << "(2) Mostrar  Datos " << endl;
+		cout << "(3) Buscar  datos " << endl;
+		cout << "(4) Eliminar datos " << endl;
+		cout << "(5) Prestar " << endl;
+		cout << "(6) Devolver " << endl;
+		cout << "(7) Salir " << endl;
+		cout << "Opcion : ";
 		cin >> menu;
 		cout << "\n \n";
 		switch (menu)
 		{
 		case 1:
-			cout << "(1) Ingresar Alumno " << endl;
-			cout << "(2) Ingresar Profesor " << endl;
-			cout << "(3) Ingresar Libro " << endl;
-			cout << "(4) Ingresar Tesis " << endl;
-			cout << "(5) Ingresar Revista " << endl;
-			cout << "(7) Regresar " << endl;
-			cout << "Opcion : ";
+			cout << "\t(1) Ingresar Alumno " << endl;
+			cout << "\t(2) Ingresar Profesor " << endl;
+			cout << "\t(3) Ingresar Libro " << endl;
+			cout << "\t(4) Ingresar Tesis " << endl;
+			cout << "\t(5) Ingresar Revista " << endl;
+			cout << "\t(7) Regresar " << endl;
+			cout << "\tOpcion : ";
 			cin >> submenu;
 			s.ingresar(submenu);
 			submenu = -1;
 			cout << "\n";
 			break;
 		case 2:
-			cout << "(1) Mostrar Alumno " << endl;
-			cout << "(2) Mostrar Profesor " << endl;
-			cout << "(3) Mostrar Libro " << endl;
-			cout << "(4) Mostrar Tesis " << endl;
-			cout << "(5) Mostrar Revista " << endl;
-			cout << "(6) Mostrar Prestamos " << endl;
-			cout << "(7) Regresar " << endl;
-			cout << "Opcion : ";
+			cout << "\t(1) Mostrar Alumno " << endl;
+			cout << "\t(2) Mostrar Profesor " << endl;
+			cout << "\t(3) Mostrar Libro " << endl;
+			cout << "\t(4) Mostrar Tesis " << endl;
+			cout << "\t(5) Mostrar Revista " << endl;
+			cout << "\t(6) Mostrar Prestamos " << endl;
+			cout << "\t(7) Regresar " << endl;
+			cout << "\tOpcion : ";
 			cin >> submenu;
 			s.listar(submenu);
 			submenu = -1;
 			cout << "\n";
 			break;
 		case 3:
-			cout << "(1) Buscar Alumno " << endl;
-			cout << "(2) Buscar Profesor " << endl;
-			cout << "(3) Buscar Libro " << endl;
-			cout << "(4) Buscar Tesis " << endl;
-			cout << "(5) Buscar Revista " << endl;
-			cout << "(6) Buscar Prestamo " << endl;
-			cout << "(7) Regresar " << endl;
-			cout << "Opcion : ";
+			cout << "\t(1) Buscar Alumno " << endl;
+			cout << "\t(2) Buscar Profesor " << endl;
+			cout << "\t(3) Buscar Libro " << endl;
+			cout << "\t(4) Buscar Tesis " << endl;
+			cout << "\t(5) Buscar Revista " << endl;
+			cout << "\t(6) Buscar Prestamo " << endl;
+			cout << "\t(7) Regresar " << endl;
+			cout << "\tOpcion : ";
 			cin >> submenu;
 			s.buscar(submenu);
 			submenu = -1;
 			cout << "\n";
 			break;
 		case 4:
-			cout << "(1) Eliminar Alumno " << endl;
-			cout << "(2) Eliminar Profesor " << endl;
-			cout << "(3) Eliminar Libro " << endl;
-			cout << "(4) Eliminar Tesis " << endl;
-			cout << "(5) Eliminar Revista " << endl;
-			cout << "(6) Regresar " << endl;
-			cout << "Opcion : ";
+			cout << "\t(1) Eliminar Alumno " << endl;
+			cout << "\t(2) Eliminar Profesor " << endl;
+			cout << "\t(3) Eliminar Libro " << endl;
+			cout << "\t(4) Eliminar Tesis " << endl;
+			cout << "\t(5) Eliminar Revista " << endl;
+			cout << "\t(6) Regresar " << endl;
+			cout << "\tOpcion : ";
 			cin >> submenu;
 			s.eliminar(submenu);
 			submenu = -1;
@@ -761,7 +775,7 @@ int main()
 			cout << "Gracias por usar el Sistema" << endl;
 			return 0;
 		default:
-			cout << "Opción no válida. Saliendo del programa." << endl;
+			cout << "Opcion no valida, Saliendo del programa..." << endl;
 			return 0;
 		}
 	}
