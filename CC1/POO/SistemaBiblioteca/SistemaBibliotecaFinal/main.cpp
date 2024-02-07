@@ -760,6 +760,9 @@ int main()
 		case 7:
 			cout << "Gracias por usar el Sistema" << endl;
 			return 0;
+		default:
+			cout << "Opción no válida. Saliendo del programa." << endl;
+			return 0;
 		}
 	}
 }
